@@ -1,0 +1,17 @@
+input[type=text] {
+  border: 0;
+  border-bottom: 1px dashed white;
+  background: none;
+  color: white;
+  font-family: "bebas";
+  font-size: 196px;
+  height: 170px;
+  width: 150px;
+  text-align: center;
+  outline: none;
+}
+
+input[type=text]:disabled {
+  border-bottom: none;
+}
+

@@ -1,0 +1,14 @@
+.base-button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  opacity: 0.3;
+}
+
+.base-button:hover {
+  opacity: 1;
+}
+
+.base-button:disabled {
+  opacity: 0.3!important;
+}

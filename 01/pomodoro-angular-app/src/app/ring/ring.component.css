@@ -1,0 +1,11 @@
+.ring {
+  position: absolute;
+  left: 0;
+  stroke: #09A65A;
+  top: 0;
+  z-index: 1;
+}
+
+.ring.ending circle {
+  stroke: #900A0A;
+}
