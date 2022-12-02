@@ -1,0 +1,20 @@
+<div class="timer">
+  <form class="time">
+    <app-time-input [formGroup]="timerFormGroup"
+                    [name]="'minutes'"></app-time-input>
+    <div class="colon">:</div>
+    <app-time-input [formGroup]="timerFormGroup"
+                    [name]="'seconds'"></app-time-input>
+  </form>
+  <button class="start"
+          (click)="toggleTimer()"
+          [ngStyle]="{'opacity': isEditModeEnabled ? 0 : ''}">
+    {{!isTimerRunning ? 'start' : 'stop'}}
+  </button>
+
+  <app-settings-button *ngIf="!isEditModeEnabled"
+                       (onButtonClick)="toggleMode()"
+                       [disabled]="isTimerRunning"></app-settings-button>
+  <app-complete-button *ngIf="isEditModeEnabled"
+                       (onButtonClick)="toggleMode()"></app-complete-button>
+</div>
