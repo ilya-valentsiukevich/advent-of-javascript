@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-ring',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ring.component.css']
 })
 export class RingComponent implements OnInit {
+  @Input() isTimerCompleted:boolean = false;
 
   constructor() { }
 

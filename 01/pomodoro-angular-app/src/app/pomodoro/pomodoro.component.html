@@ -1,4 +1,5 @@
 <div class="wrapper">
-  <app-ring></app-ring>
-  <app-timer [initialTimeInSeconds]="75"></app-timer>
+  <app-ring [isTimerCompleted]="isTimerCompleted"></app-ring>
+  <app-timer [initialTimeInSeconds]="75"
+             (onTimerCompleted)="isTimerCompleted = $event"></app-timer>
 </div>

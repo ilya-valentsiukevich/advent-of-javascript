@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {interval, Subscription} from "rxjs";
 import {MILLISECONDS_IN_SECOND, SECONDS_IN_MINUTE} from "./timer";
@@ -12,19 +12,23 @@ export class TimerComponent implements OnInit {
   get timerFormGroup(): FormGroup {
     return this._timerFormGroup;
   }
+
   get isEditModeEnabled(): boolean {
     return this._isEditModeEnabled;
   }
+
   get isTimerRunning(): boolean {
     return this._isTimerRunning;
   }
 
   private _isTimerRunning: boolean = false;
   private _isEditModeEnabled: boolean = false;
-  private _timerFormGroup!:FormGroup;
+  private _timerFormGroup!: FormGroup;
   private _subscription: Subscription = new Subscription();
 
-  @Input() initialTimeInSeconds:number = 0;
+  @Input() initialTimeInSeconds: number = 0;
+  @Output() onTimerCompleted: EventEmitter<boolean> = new EventEmitter<boolean>;
+
   private _time: number = 0;
 
   constructor() {
@@ -74,13 +78,18 @@ export class TimerComponent implements OnInit {
   }
 
   private startTimer() {
+    this.onTimerCompleted.emit(false);
+
     this._subscription = interval(MILLISECONDS_IN_SECOND).subscribe(() => {
       this._time -= 1;
       this.getMinutesFormControl().setValue(this.getMinutes());
       this.getSecondsFormControl().setValue(this.getSeconds());
 
-      if (this._time === 0) {
+      if (this._time <= 0) {
         this.stopTimer();
+        this.onTimerCompleted.emit(true);
+        this._isTimerRunning = false;
+        this._time = this.initialTimeInSeconds;
       }
     });
   }

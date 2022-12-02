@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pomodoro.component.css']
 })
 export class PomodoroComponent implements OnInit {
+  isTimerCompleted:boolean = false;
 
   constructor() { }
 
