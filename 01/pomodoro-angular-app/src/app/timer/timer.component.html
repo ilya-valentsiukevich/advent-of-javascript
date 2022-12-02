@@ -7,6 +7,7 @@
                     [name]="'seconds'"></app-time-input>
   </form>
   <button class="start"
+          [disabled]="remainingTime===0"
           (click)="toggleTimer()"
           [ngStyle]="{'opacity': isEditModeEnabled ? 0 : ''}">
     {{!isTimerRunning ? 'start' : 'stop'}}

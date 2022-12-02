@@ -39,3 +39,7 @@
 .start:hover {
   opacity: 1;
 }
+
+.start:disabled {
+  opacity: 0.5 !important;
+}
