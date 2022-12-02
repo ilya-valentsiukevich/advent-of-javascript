@@ -9,6 +9,9 @@ import {MILLISECONDS_IN_SECOND, SECONDS_IN_MINUTE} from "./timer";
   styleUrls: ['./timer.component.css']
 })
 export class TimerComponent implements OnInit {
+  get remainingTime(): number {
+    return this._remainingTime;
+  }
   get timerFormGroup(): FormGroup {
     return this._timerFormGroup;
   }
@@ -29,13 +32,13 @@ export class TimerComponent implements OnInit {
   @Input() initialTimeInSeconds: number = 0;
   @Output() onTimerCompleted: EventEmitter<boolean> = new EventEmitter<boolean>;
 
-  private _time: number = 0;
+  private _remainingTime: number = 0;
 
   constructor() {
   }
 
   ngOnInit(): void {
-    this._time = this.initialTimeInSeconds;
+    this._remainingTime = this.initialTimeInSeconds;
     this._timerFormGroup = new FormGroup({
       minutes: new FormControl({value: this.getMinutes(), disabled: true}),
       seconds: new FormControl({value: this.getSeconds(), disabled: true})
@@ -71,25 +74,25 @@ export class TimerComponent implements OnInit {
     this.getMinutesFormControl().disable({emitEvent: false});
     this.getSecondsFormControl().disable({emitEvent: false});
 
-    const minutes: number = Math.min(Number(this.getMinutesFormControl().value), SECONDS_IN_MINUTE - 1);
-    const seconds: number = Math.min(Number(this.getSecondsFormControl().value), SECONDS_IN_MINUTE - 1);
+    const minutes: number = Number(this.getMinutesFormControl().value);
+    const seconds: number = Number(this.getSecondsFormControl().value);
 
-    this._time = (minutes * SECONDS_IN_MINUTE + seconds);
+    this._remainingTime = (minutes * SECONDS_IN_MINUTE + seconds);
   }
 
   private startTimer() {
     this.onTimerCompleted.emit(false);
+    if (this._remainingTime === 0) return;
 
     this._subscription = interval(MILLISECONDS_IN_SECOND).subscribe(() => {
-      this._time -= 1;
+      this._remainingTime -= 1;
       this.getMinutesFormControl().setValue(this.getMinutes());
       this.getSecondsFormControl().setValue(this.getSeconds());
 
-      if (this._time <= 0) {
+      if (this._remainingTime <= 0) {
         this.stopTimer();
         this.onTimerCompleted.emit(true);
         this._isTimerRunning = false;
-        this._time = this.initialTimeInSeconds;
       }
     });
   }
@@ -107,12 +110,12 @@ export class TimerComponent implements OnInit {
   }
 
   private getMinutes() {
-    const minutes = Math.floor(this._time / SECONDS_IN_MINUTE);
+    const minutes = Math.floor(this._remainingTime / SECONDS_IN_MINUTE);
     return this.formatTime(minutes)
   }
 
   private getSeconds() {
-    const seconds = this._time % SECONDS_IN_MINUTE;
+    const seconds = this._remainingTime % SECONDS_IN_MINUTE;
     return this.formatTime(seconds);
   }
 

@@ -7,10 +7,10 @@ import { RingComponent } from './ring/ring.component';
 import { TimerComponent } from './timer/timer.component';
 import { TimeInputComponent } from './shared/time-input/time-input.component';
 import {ReactiveFormsModule} from "@angular/forms";
-import { DigitsOnlyDirective } from './digits-only.directive';
 import { BaseButtonComponent } from './shared/base-button/base-button.component';
 import { SettingsButtonComponent } from './shared/settings-button/settings-button.component';
 import { CompleteButtonComponent } from './shared/complete-button/complete-button.component';
+import {NgxMaskModule} from "ngx-mask";
 
 @NgModule({
   declarations: [
@@ -19,14 +19,14 @@ import { CompleteButtonComponent } from './shared/complete-button/complete-butto
     RingComponent,
     TimerComponent,
     TimeInputComponent,
-    DigitsOnlyDirective,
     BaseButtonComponent,
     SettingsButtonComponent,
     CompleteButtonComponent
   ],
     imports: [
         BrowserModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NgxMaskModule.forRoot()
     ],
   providers: [],
   bootstrap: [AppComponent]

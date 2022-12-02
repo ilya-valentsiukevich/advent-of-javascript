@@ -1,3 +1,8 @@
 <div [formGroup]="formGroup">
-  <input type="text" digitsOnly [formControlName]="name"/>
+  <input type="text"
+         [formControlName]="name"
+         mask="m0"
+         [leadZeroDateTime]="true"
+         [showMaskTyped]="true"
+         placeHolderCharacter="0"/>
 </div>
