@@ -1,2 +1,5 @@
-# advent-of-javascript
-🎄 Advent of JavaScript
+# 🎄 Advent of JavaScript 2022
+ 
+2️⃣4️⃣ JavaScript Challenges for the Season
+
+**Day 1** - Pomodoro Time
